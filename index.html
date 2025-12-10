@@ -37,10 +37,15 @@
                 Built from real extension bulletins, university materials, and open-access research - not synthetic trivia.
             </p>
             <div class="hero-logos">
+                <a href="https://aiagribench.org/" target="_blank" rel="noopener">
                 <img src="assets/img/logo_aifarms2.png" alt="AI FARMS" class="partner-logo">
+                </a>
+                <a href="https://www.cda.gov/" target="_blank" rel="noopener">
                 <img src="assets/img/CDAlogo.png" alt="CDA" class="partner-logo">
+                </a>
             </div>
             <div class="hero-actions">
+                <a href="https://aiagribench.org/" class="btn btn-hero-primary" target="_blank">AI-AgriBench Home</a>
                 <a href="https://aiagribench.org/leaderboard/" class="btn btn-hero-secondary" target="_blank">View Leaderboard</a>
             </div>
             <div class="hero-resource-links">
@@ -71,15 +76,14 @@
                     <h2>Why AI-AgriBench?</h2>
                     <p>
                         AI-AgriBench is designed to answer a simple but critical question:
-                        <strong>“Can frontier language models actually help farmers and agronomy advisors?”</strong>
+                        <strong>“Can frontier language models and commercial Ag advisory services be trusted to help farmers and agronomy advisors?”</strong>
                         Instead of testing models on generic benchmarks, AI-AgriBench evaluates them on realistic, field-level questions grounded in extension knowledge.
                     </p>
                     <div class="card-grid card-grid-4">
                         <div class="card">
-                            <h3>Domain-authentic sources</h3>
+                            <h3>Grounded knowledge sources</h3>
                             <p>
-                                We build from 400K+ PDFs in the CropWizard corpus:
-                                land-grant university extension bulletins, university materials, and open-access agricultural research.
+                                We build from extension publications from US land-grant universities.
                                 This keeps the benchmark anchored in the same documents farmers and advisors actually use.
                             </p>
                         </div>
@@ -91,17 +95,17 @@
                             </p>
                         </div>
                         <div class="card">
-                            <h3>Transparent, multi-stage pipeline</h3>
+                            <h3>Expert-Curated QA Data Set</h3>
                             <p>
-                                Every stage - from document filtering to Q&A generation, deduplication, classification, and complexity filtering -
-                                is documented and implemented in open-source code, enabling reproducible experiments and extensions.
+                                Our benchmark is curated by highly experienced experts. Each QA pair was reviewed by 1-4 experts, with 951 questions reviewed. 
+                                Many questions were manually edited, and 416 high-quality Q&A pairs were retained after expert review.
                             </p>
                         </div>
                         <div class="card">
                             <h3>Contamination-aware evaluation</h3>
                             <p>
                                 We explicitly time-split documents (pre- vs post-Aug&nbsp;2024) to study data contamination and test whether models
-                                truly generalize beyond their training cutoff, rather than memorizing extension PDFs.
+                                truly generalize beyond their training cutoff.
                             </p>
                         </div>
                         </div>
@@ -111,39 +115,199 @@
                     <h2>Who is AI-AgriBench for?</h2>
                     <div class="card-grid card-grid-4">
                         <div class="card">
-                            <h3>ML & LLM researchers</h3>
-                            <p>Stress-test reasoning, contamination, and long-context performance in a high-stakes, under-served domain.</p>
-                            </div>
-                        <div class="card">
-                            <h3>Ag-tech companies</h3>
-                            <p>Evaluate whether advisory tools are safe and useful before deployment to growers and agronomists.</p>
-                        </div>
-                        <div class="card">
-                            <h3>University researchers</h3>
-                            <p>Study agricultural NLP, domain adaptation, and retrieval over large extension corpora.</p>
-                            </div>
-                        <div class="card">
                             <h3>Farmers & advisors</h3>
                             <p>Understand where current models work well - and where they are not yet trustworthy.</p>
+                            </div>
+                        <div class="card">
+                            <h3>AgTech Advisory Services</h3>
+                            <p>Demonstrate quality of proprietary Ag advisory services using standard, widely accepted benchmarks.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Other AgTech Companies</h3>
+                            <p>Evaluate whether advisory tools are safe and useful before deployment to growers and agronomists.</p>
+                            </div>
+                        <div class="card">
+                            <h3>Funders, Investors, Policy Makers</h3>
+                            <p>Evaluate effectiveness of potential commercial or research Ag advisory services.</p>
                             </div>
                         </div>
                     </div>
             </section>
 
-            <!-- Overview Section -->
-            <section id="overview" class="section">
-                <h1>Overview</h1>
+            <!-- Data Set Statistics Section -->
+            <section id="dataset-statistics" class="section">
+                <h2>Data Set Statistics</h2>
                 
-                <h2>Why not just use general benchmarks?</h2>
                 <p>
-                    Most popular LLM benchmarks focus on multiple-choice questions, short contexts, and clean textbook-style content.
-                    Real agriculture looks very different. Extension bulletins are long, noisy PDFs. Decisions depend on local weather,
-                    soil conditions, and management history. And the questions that matter - “Should I spray this field now?”,
-                    “Why is this crop yellowing after a frost?” - rarely have four neat answer options.
+                    The following tables show the distribution of questions across topic categories and crop categories in the AI-AgriBench dataset.
                 </p>
+
+                <h3>Topic Categories</h3>
+                <div class="table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Topic Category</th>
+                                <th class="text-right">Number of Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Crop Management Decisions</strong></td>
+                                <td class="text-right">15,273</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agricultural Sustainability</strong></td>
+                                <td class="text-right">13,705</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Crop Nutrition</strong></td>
+                                <td class="text-right">13,257</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pests and Pest Management</strong></td>
+                                <td class="text-right">12,672</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Water and Irrigation Management</strong></td>
+                                <td class="text-right">9,314</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Weeds and Weed Management</strong></td>
+                                <td class="text-right">5,412</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agricultural Weather Risk</strong></td>
+                                <td class="text-right">5,109</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Crop Categories</h3>
+                <div class="table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Crop Category</th>
+                                <th class="text-right">Number of Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Midwestern Row Crops</strong> (Corn, Wheat, Soybean, Sorghum)</td>
+                                <td class="text-right">10,508</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tree Crops</strong> (Fruits and nuts from orchard or plantation trees)</td>
+                                <td class="text-right">3,775</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Commercial Vegetables</strong> (Large-scale vegetables for commercial sale)</td>
+                                <td class="text-right">3,697</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Southern Row Crops</strong> (Rice, Cotton, Peanuts, Tobacco)</td>
+                                <td class="text-right">3,550</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Small Fruits</strong> (Berries, grapes, other small fruits)</td>
+                                <td class="text-right">2,501</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Northern Crops</strong> (Canola, Barley, Potatoes, Dry Beans)</td>
+                                <td class="text-right">2,035</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Herbs</strong> (Culinary/medicinal herbs for commercial production)</td>
+                                <td class="text-right">213</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <p>
-                    AI-AgriBench is built to reflect that reality. It evaluates models on open-ended Q&amp;A over real extension content,
-                    with multi-step reasoning and domain-specific terminology. AI-AgriBench is constructed through three major stages:</p>
+                    The final expert-curated benchmark contains 416 high-quality Q&A pairs. [Note: Add sentence about how many total QAs were post-cutoff here.]
+                </p>
+            </section>
+
+            <!-- Leaderboard Summary Section -->
+            <section id="leaderboard-summary" class="section">
+                <h2>Leaderboard Summary</h2>
+                
+                <p>
+                    The following table summarizes performance of major frontier models on AI-AgriBench.
+                </p>
+
+                <div class="table-container">
+                    <table class="stats-table leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Model / Service</th>
+                                <th class="text-right">Accuracy</th>
+                                <th class="text-right">Completeness</th>
+                                <th class="text-right">Conciseness</th>
+                                <th class="text-right">Relevance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: var(--color-bg-soft);">
+                                <td colspan="5"><strong>Frontier Models</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GPT-5.1</strong></td>
+                                <td class="text-right">96.90</td>
+                                <td class="text-right">93.16</td>
+                                <td class="text-right">54.52</td>
+                                <td class="text-right">90.90</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gemini-3-pro-preview</strong></td>
+                                <td class="text-right">94.39</td>
+                                <td class="text-right">84.99</td>
+                                <td class="text-right">52.31</td>
+                                <td class="text-right">89.85</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kimi-K2-thinking</strong></td>
+                                <td class="text-right">92.83</td>
+                                <td class="text-right">91.65</td>
+                                <td class="text-right">54.95</td>
+                                <td class="text-right">85.90</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Claude 4.1 Opus</strong></td>
+                                <td class="text-right">91.41</td>
+                                <td class="text-right">83.05</td>
+                                <td class="text-right">64.46</td>
+                                <td class="text-right">95.68</td>
+                            </tr>
+                            <tr>
+                                <td><strong>GPT-OSS-120B</strong></td>
+                                <td class="text-right">84.44</td>
+                                <td class="text-right">91.85</td>
+                                <td class="text-right">39.62</td>
+                                <td class="text-right">82.56</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- DETAILS Header -->
+            <section class="section">
+                <h1 style="margin-bottom: 48px;">DETAILS</h1>
+            </section>
+
+            <!-- Overview Section -->
+            <div class="detail-section" id="overview">
+                <button class="detail-section-header" aria-expanded="false">
+                    <h1>Overview</h1>
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
+                    <p>
+                        AI-AgriBench is constructed through three major stages:</p>
 
 <h3>Step 1 - Document Filtering</h3>
 <p>
@@ -175,7 +339,6 @@ Raw Q&amp;As are cleaned and organized into the final benchmark:
     <li><strong>Premise filtering:</strong> Discard Q&amp;As not fully supported by the source text.</li>
     <li><strong>Categorization:</strong> Assign each item to a crop group and topic category; discard off-topic items.</li>
 </ul>
-
             
                 <div class="method-callout">
                     <h3>Method at a Glance</h3>
@@ -187,13 +350,17 @@ Raw Q&amp;As are cleaned and organized into the final benchmark:
                         </strong>
                     </p>
                 </div>
-            </section>
+                </div>
+            </div>
             
 
             <!-- Pipeline Section -->
-            <section id="pipeline" class="section">
+            <div class="detail-section" id="pipeline">
+                <button class="detail-section-header" aria-expanded="false">
                 <h1>Pipeline</h1>
-            
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
                 <p>
                     AI-AgriBench is constructed through a multi-stage pipeline that transforms 400K+ real agricultural PDFs 
                     into a high-quality benchmark of grounded, actionable question-answer pairs. Each stage is designed to 
@@ -600,11 +767,16 @@ Raw Q&amp;As are cleaned and organized into the final benchmark:
                         </tbody>
                     </table>
                     </div>
-            </section>
+                </div>
+            </div>
 
             <!-- Prompt Design Section -->
-            <section id="prompts" class="section">
+            <div class="detail-section" id="prompts">
+                <button class="detail-section-header" aria-expanded="false">
                 <h1>Prompt Design</h1>
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
                 <p>
                     AI-AgriBench relies on carefully designed prompts at multiple stages of the pipeline:
                     generation, filtering, and categorization. Use the arrows to explore the prompts that
@@ -1032,12 +1204,16 @@ OUTPUT FORMAT (strict JSON):
                     }
                 });
                 </script>
-            </section>
+                </div>
+            </div>
 
             <!-- Dataset Section -->
-            <section id="dataset" class="section">
+            <div class="detail-section" id="dataset">
+                <button class="detail-section-header" aria-expanded="false">
                 <h1>Dataset</h1>
-
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
                 <p>
                     The core AI-AgriBench dataset consists of cleaned, categorized question-answer pairs derived from extension
                     and research PDFs. Each record is linked back to its source documents and carries crop, topic, and complexity labels.
@@ -1145,12 +1321,16 @@ OUTPUT FORMAT (strict JSON):
                         <p>Frost, heat waves, hail, flooding, and short-term weather-related operational risks and mitigation strategies.</p>
                     </div>
                     </div>
-            </section>
+                </div>
+            </div>
 
             <!-- Evaluation Section -->
-            <section id="evaluation" class="section">
+            <div class="detail-section" id="evaluation">
+                <button class="detail-section-header" aria-expanded="false">
                 <h1>Evaluation</h1>
-            
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
                 <p>
                     AI-AgriBench uses an <strong>LLM-as-a-Judge</strong> evaluation pipeline: subject models generate answers to
                     agricultural questions, and specialized judge models score those answers along four dimensions from 0–100.
@@ -1365,81 +1545,11 @@ Please only output the scores without any other content. You should output JSON 
                     </li>
                 </ul>
                 <p>
-                    Comparing performance across these splits helps us distinguish how much of a model’s success comes from
+                    Comparing performance across these splits helps us distinguish how much of a model's success comes from
                     memorization versus genuine reasoning over agricultural knowledge.
-                </p>
-            
-                <div class="method-callout">
-                    <h3>Submitting to the Leaderboard</h3>
-                    <p>
-                        To submit to the leaderboard, run your model on the released evaluation set, store outputs in the required
-                        JSON/JSONL format, and upload the results through our submission portal. We re-score all submissions with a
-                        fixed set of judge models and a frozen scoring rubric to ensure comparability across systems and over time.
                     </p>
                 </div>
-            
-                <h2>Leaderboard</h2>
-                <p>
-                    The leaderboard below shows model performance on AI-AgriBench across four key metrics:
-                    <strong>Accuracy</strong>, <strong>Completeness</strong>, <strong>Conciseness</strong>, and
-                    <strong>Relevance</strong>. All submissions are evaluated using the same judge configuration and rubric to
-                    ensure fair comparison. The table will be updated as new results are submitted and validated.
-                </p>
-                <p class="text-muted" style="margin-bottom: 24px;">
-                    <em>Note: This is a boilerplate table structure. Actual results will be populated as submissions are received and evaluated.</em>
-                </p>
-
-                <div class="table-container">
-                    <table class="stats-table leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>Subject Model</th>
-                                <th class="text-right">Accuracy</th>
-                                <th class="text-right">Completeness</th>
-                                <th class="text-right">Conciseness</th>
-                                <th class="text-right">Relevance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Model Name 1</strong></td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model Name 2</strong></td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model Name 3</strong></td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model Name 4</strong></td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model Name 5</strong></td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                                <td class="text-right">-</td>
-                            </tr>
-                        </tbody>
-                    </table>
                     </div>
-            </section>
             
 
             <!-- FAQ Section -->
@@ -1447,6 +1557,25 @@ Please only output the scores without any other content. You should output JSON 
                 <h1>Frequently Asked Questions</h1>
                 
                 <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Why not just use general benchmarks?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                Most popular LLM benchmarks focus on multiple-choice questions, short contexts, and clean textbook-style content.
+                                Real agriculture looks very different. Extension bulletins are long, noisy PDFs. Decisions depend on local weather,
+                                soil conditions, and management history. And the questions that matter - "Should I spray this field now?",
+                                "Why is this crop yellowing after a frost?" - rarely have four neat answer options.
+                            </p>
+                            <p>
+                                AI-AgriBench is built to reflect that reality. It evaluates models on open-ended Q&amp;A over real extension content,
+                                with multi-step reasoning and domain-specific terminology.
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
                             <span>What is the source of the data?</span>
@@ -1676,7 +1805,7 @@ Please only output the scores without any other content. You should output JSON 
                             <div class="email-contact-item">
                                 <div class="email-contact-header">
                                     <strong class="email-contact-label">General Inquiries</strong>
-                                    <a href="mailto:contact@ai-agribench.org" class="email-link">contact@ai-agribench.org</a>
+                                    <a href="mailto:vadve@illinois.edu" class="email-link">vadve@illinois.edu</a>
                         </div>
                                 <p class="email-contact-description">
                                     For general questions about AI-AgriBench, dataset access, or research collaboration.
@@ -1685,21 +1814,12 @@ Please only output the scores without any other content. You should output JSON 
                             <div class="email-contact-item">
                                 <div class="email-contact-header">
                                     <strong class="email-contact-label">Technical Support</strong>
-                                    <a href="mailto:tech@ai-agribench.org" class="email-link">tech@ai-agribench.org</a>
+                                    <a href="mailto:aankul2@illinois.edu" class="email-link">aankul2@illinois.edu</a>
                                 </div>
                                 <p class="email-contact-description">
                                     For technical questions about evaluation, model submission, or code issues.
                                 </p>
                             </div>
-                            <div class="email-contact-item">
-                                <div class="email-contact-header">
-                                    <strong class="email-contact-label">Media &amp; Press</strong>
-                                    <a href="mailto:media@ai-agribench.org" class="email-link">media@ai-agribench.org</a>
-                                </div>
-                                <p class="email-contact-description">
-                                    For media inquiries, press materials, or interview requests.
-                                </p>
-                        </div>
                         </div>
                     </div>
                     </div>

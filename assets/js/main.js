@@ -194,6 +194,22 @@ function initFAQAccordion() {
   });
 }
 
+// Detail Section Accordion functionality
+function initDetailSections() {
+  const detailHeaders = document.querySelectorAll('.detail-section-header');
+  
+  detailHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const detailSection = header.parentElement;
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      
+      // Toggle current item
+      header.setAttribute('aria-expanded', !isExpanded);
+      detailSection.classList.toggle('active', !isExpanded);
+    });
+  });
+}
+
 // Smooth scrolling for anchor links
 function initSmoothScrolling() {
   const links = document.querySelectorAll('a[href^="#"]');
@@ -248,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTableSearch();
   initContactForm();
   initFAQAccordion();
+  initDetailSections();
   initSmoothScrolling();
   initScrollAnimations();
   
@@ -274,6 +291,7 @@ window.AIAgriBench = {
   initTableSearch,
   initContactForm,
   initFAQAccordion,
+  initDetailSections,
   initSmoothScrolling,
   initScrollAnimations
 };

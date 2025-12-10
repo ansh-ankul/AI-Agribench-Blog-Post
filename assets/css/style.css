@@ -143,6 +143,16 @@ body {
   flex-wrap: wrap;
 }
 
+.hero-logos a {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.hero-logos a:hover {
+  transform: scale(1.05);
+}
+
 .partner-logo {
   height: 50px;
   width: auto;
@@ -863,6 +873,87 @@ table a:hover {
 
 .faq-answer a:hover {
   text-decoration: underline;
+}
+
+/* ===== COLLAPSIBLE DETAIL SECTIONS ===== */
+
+.detail-section {
+  margin-bottom: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: all 0.3s ease;
+}
+
+.detail-section:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.detail-section-header {
+  width: 100%;
+  padding: 20px 24px;
+  background: var(--color-bg);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.detail-section-header:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-primary);
+}
+
+.detail-section-header h1,
+.detail-section-header h2 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  flex: 1;
+  padding-right: 16px;
+}
+
+.detail-section-icon {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-primary);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.detail-section-header[aria-expanded="true"] .detail-section-icon {
+  transform: rotate(90deg);
+}
+
+.detail-section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  background: var(--color-bg);
+}
+
+.detail-section.active .detail-section-content {
+  max-height: 50000px;
+  padding: 0 24px 24px 24px;
+}
+
+.detail-section-content > *:first-child {
+  margin-top: 24px;
+}
+
+.detail-section-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* ===== PROMPT CAROUSEL ===== */
