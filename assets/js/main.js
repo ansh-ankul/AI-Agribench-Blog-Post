@@ -196,17 +196,40 @@ function initFAQAccordion() {
 
 // Detail Section Accordion functionality
 function initDetailSections() {
-  const detailHeaders = document.querySelectorAll('.detail-section-header');
-  
-  detailHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const detailSection = header.parentElement;
-      const isExpanded = header.getAttribute('aria-expanded') === 'true';
-      
-      // Toggle current item
-      header.setAttribute('aria-expanded', !isExpanded);
-      detailSection.classList.toggle('active', !isExpanded);
+  // Use event delegation on the main content container for better performance and nested section support
+  const mainContent = document.getElementById('main-content');
+  if (!mainContent) {
+    // Fallback to document if main-content doesn't exist
+    const detailHeaders = document.querySelectorAll('.detail-section-header');
+    detailHeaders.forEach(header => {
+      header.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const detailSection = this.parentElement;
+        if (!detailSection || !detailSection.classList.contains('detail-section')) return;
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        detailSection.classList.toggle('active', !isExpanded);
+      });
     });
+    return;
+  }
+  
+  mainContent.addEventListener('click', function(e) {
+    const header = e.target.closest('.detail-section-header');
+    if (!header) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const detailSection = header.parentElement;
+    if (!detailSection || !detailSection.classList.contains('detail-section')) return;
+    
+    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+    
+    // Toggle current item
+    header.setAttribute('aria-expanded', !isExpanded);
+    detailSection.classList.toggle('active', !isExpanded);
   });
 }
 

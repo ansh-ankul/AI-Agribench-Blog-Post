@@ -941,10 +941,11 @@ table a:hover {
   overflow: hidden;
   transition: max-height 0.5s ease, padding 0.3s ease;
   background: var(--color-bg);
+  padding: 0;
 }
 
 .detail-section.active .detail-section-content {
-  max-height: 50000px;
+  max-height: 10000px;
   padding: 0 24px 24px 24px;
 }
 
@@ -954,6 +955,24 @@ table a:hover {
 
 .detail-section-content > *:last-child {
   margin-bottom: 0;
+}
+
+/* Ensure nested detail sections work properly */
+.detail-section-content .detail-section {
+  margin-top: 24px;
+}
+
+.detail-section-content .detail-section .detail-section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  background: var(--color-bg);
+  padding: 0;
+}
+
+.detail-section-content .detail-section.active .detail-section-content {
+  max-height: 10000px;
+  padding: 0 24px 24px 24px;
 }
 
 /* ===== PROMPT CAROUSEL ===== */
