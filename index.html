@@ -34,7 +34,7 @@
             <h1 class="hero-title">AI-AgriBench</h1>
             <p class="hero-subtitle">A domain-grounded benchmark for reliable agricultural question answering</p>
             <p class="hero-tagline">
-                Built from real extension bulletins, university materials, and open-access research - not synthetic trivia.
+                Built from real extension bulletins, university materials, and open-access research.
             </p>
             <div class="hero-logos">
                 <a href="https://aiagribench.org/" target="_blank" rel="noopener">
@@ -103,9 +103,8 @@
                         </div>
                         <div class="card">
                             <h3>Contamination-aware evaluation</h3>
-                            <p>
-                                We explicitly time-split documents (pre- vs post-September 30, 2024) to study data contamination and test whether models
-                                truly generalize beyond their training cutoff.
+                            <p style="font-size: 0.9em;">
+                                To avoid bias for LLMs potentially exposed in pretraining to the source documents used for question-answer extraction, we extract a subset of the QA pairs from documents published AFTER September 30, 2024 and evaluate several LLMs on this subset. These results are marked with an asterisk (*) in the leaderboard and should be compared with the corresponding results for the same model on the full data set.
                             </p>
                         </div>
                         </div>
@@ -148,10 +147,10 @@
                         <strong>Run your model:</strong> Generate answers for all questions in the test set using your model or system.
                     </li>
                     <li>
-                        <strong>Format predictions:</strong> Format your predictions according to our JSON protocol. Each prediction should include the question ID and your model's answer.
+                        <strong>Format responses:</strong> Format your responses according to our JSON protocol. Each response should include the question ID and your model's answer.
                     </li>
                     <li>
-                        <strong>Submit via portal:</strong> Submit your results via the submission portal linked from the <a href="https://aiagribench.org/leaderboard/" target="_blank" rel="noopener">leaderboard page</a>.
+                        <strong>Email submissions:</strong> Email the JSON with the responses to <a href="mailto:aankul2@illinois.edu">Ansh Ankul</a> and <a href="mailto:vadve@illinois.edu">Vikram Adve</a>.
                     </li>
                 </ol>
                 <p>
@@ -161,7 +160,8 @@
 
             <!-- DETAILS Header -->
             <section class="section">
-                <h1 style="margin-bottom: 48px;">DETAILS</h1>
+                <h1 style="margin-bottom: 24px;">DETAILS</h1>
+                <p style="font-size: 1.1em; color: var(--color-text-soft); margin-bottom: 48px;">A comprehensive guide to the AI-AgriBench methodology, pipeline, and evaluation framework. Click on the sections below to expand and view detailed information.</p>
             </section>
 
             <!-- Overview Section -->
@@ -172,22 +172,27 @@
                 </button>
                 <div class="detail-section-content">
                     <p>
-                        AI-AgriBench is constructed through three major stages:
+                        AI-AgriBench is constructed through four major stages:
                     </p>
-                    
-                    <h3>Step 1 - Document Filtering</h3>
-                    <p>
+
+<h3>Step 1 - Document Filtering</h3>
+<p>
                         We begin with the CropWizard corpus (400K+ extension PDFs). Filtering occurs in two parts: hard filtering removes low-quality scans, boilerplate pages, and non-agronomic documents; semantic filtering segments and embeds documents (Qwen3-Embedding-8B), then keeps only chunks relevant to key agricultural topics using LLM-generated and curated seed queries.
-                    </p>
-                    
-                    <h3>Step 2 - Q&amp;A Generation (YourBench)</h3>
-                    <p>
+</p>
+                
+<h3>Step 2 - Q&amp;A Generation (YourBench)</h3>
+<p>
                         Filtered chunks are turned into realistic, farmer-focused question-answer pairs using <strong>YourBench</strong> with GPT-4o-mini (<a href="https://arxiv.org/abs/2504.01833" target="_blank" rel="noopener">arXiv</a>, <a href="https://huggingface.co/yourbench" target="_blank" rel="noopener">HuggingFace</a>). The process includes chunking & summaries, Q&A generation with strict grounding rules, and structured output with provenance links.
                     </p>
                     
-                    <h3>Step 3 - Benchmark Curation</h3>
+                    <h3>Step 3 - Q&amp;A Data Set Filtering and Categorization</h3>
                     <p>
-                        Raw Q&As are cleaned and organized into the final benchmark through deduplication (using embeddings + FAISS), complexity filtering, premise filtering, and categorization (assigning each item to a crop group and topic category; discarding off-topic items).
+                        Raw Q&As are cleaned and organized through deduplication (using embeddings + FAISS), complexity filtering, premise filtering, and categorization (assigning each item to a crop group and topic category; discarding off-topic items).
+                    </p>
+                    
+                    <h3>Step 4 - Benchmark Review and Editing</h3>
+                    <p>
+                        Domain experts from production farming backgrounds review and validate Q&A pairs, manually edit content to meet quality standards, and ensure the benchmark reflects real-world agricultural expertise. The final benchmark comprises 416 expert-validated Q&A pairs.
                     </p>
                 </div>
             </div>
@@ -204,164 +209,164 @@
                     AI-AgriBench is constructed through a multi-stage pipeline that transforms 400K+ real agricultural PDFs 
                     into a high-quality benchmark of grounded, actionable question-answer pairs. Each stage is designed to 
                     preserve fidelity to the underlying documents, avoid hallucinations, and ensure the final benchmark 
-                    reflects real production agriculture rather than synthetic trivia.
+                    reflects real production agriculture.
                 </p>
             
                 <div class="detail-section" style="margin-top: 24px;">
                     <button type="button" class="detail-section-header" aria-expanded="false">
-                        <h2>Step 1 - Document Filtering</h2>
+                <h2>Step 1 - Document Filtering</h2>
                         <span class="detail-section-icon">></span>
                     </button>
                     <div class="detail-section-content">
-                        <p>
-                            We begin with the CropWizard document corpus, which contains 400,000+ PDFs from land-grant extension 
-                            publications, university materials, and open-access research. Only the PDFs are used to ensure grounding 
-                            in original agricultural knowledge.
-                        </p>
-                    
-                        <h3>1.1 Hard Filtering</h3>
-                        <p>
-                            This quality-screening stage eliminates documents that would be unsuitable for LLM-based extraction. 
-                            Examples of removed content include:
-                        </p>
-                        <ul>
-                            <li>Low-content PDFs (scanned covers, empty pages, newsletter headers)</li>
-                            <li>Unreadable scans or pages dominated by OCR noise</li>
-                            <li>Material unrelated to production agriculture (e.g., youth programs, policy memos)</li>
-                            <li>Documents too short or too visually complex for meaningful text extraction</li>
-                        </ul>
-                        <p>
-                            Hard filtering ensures that no computational resources are wasted on unusable material and that downstream 
-                            stages operate on documents containing genuine agronomic content.
-                        </p>
-                    
-                        <h3>1.2 Semantic Filtering</h3>
-                        <p>
-                            After hard filtering, documents are divided into hierarchical text chunks and embedded using 
+                <p>
+                    We begin with the CropWizard document corpus, which contains 400,000+ PDFs from land-grant extension 
+                    publications, university materials, and open-access research. Only the PDFs are used to ensure grounding 
+                    in original agricultural knowledge.
+                </p>
+            
+                <h3>1.1 Hard Filtering</h3>
+                <p>
+                    This quality-screening stage eliminates documents that would be unsuitable for LLM-based extraction. 
+                    Examples of removed content include:
+                </p>
+                <ul>
+                    <li>Low-content PDFs (scanned covers, empty pages, newsletter headers)</li>
+                    <li>Unreadable scans or pages dominated by OCR noise</li>
+                    <li>Material unrelated to production agriculture (e.g., youth programs, policy memos)</li>
+                    <li>Documents too short or too visually complex for meaningful text extraction</li>
+                </ul>
+                <p>
+                    Hard filtering ensures that no computational resources are wasted on unusable material and that downstream 
+                    stages operate on documents containing genuine agronomic content.
+                </p>
+            
+                <h3>1.2 Semantic Filtering</h3>
+                <p>
+                    After hard filtering, documents are divided into hierarchical text chunks and embedded using 
                             <code>Qwen3-Embedding-8B</code>. We then perform retrieval against a curated set of agricultural "seed queries" 
-                            that define the nine major production themes of the benchmark:
-                        </p>
-                        <ul>
-                            <li>Crop Management</li>
-                            <li>Pests & Pest Management</li>
-                            <li>Weeds & Weed Management</li>
-                            <li>Crop Nutrition & Fertility</li>
-                            <li>Water & Irrigation</li>
-                            <li>Soil Health</li>
-                            <li>Crop Marketing</li>
-                            <li>Farm Finance</li>
-                            <li>Climate & Weather Risk</li>
-                        </ul>
+                    that define the nine major production themes of the benchmark:
+                </p>
+                <ul>
+                    <li>Crop Management</li>
+                    <li>Pests & Pest Management</li>
+                    <li>Weeds & Weed Management</li>
+                    <li>Crop Nutrition & Fertility</li>
+                    <li>Water & Irrigation</li>
+                    <li>Soil Health</li>
+                    <li>Crop Marketing</li>
+                    <li>Farm Finance</li>
+                    <li>Climate & Weather Risk</li>
+                </ul>
 
-                        <p>
-                            Seed queries are generated using GPT-4.1 over the entire corpus, transformed into question-style prompts, 
-                            clustered to remove redundancy, and manually reviewed to build a high-quality retrieval set. Only chunks 
-                            that semantically match these queries are kept. This ensures the pipeline focuses exclusively on 
-                            agriculturally relevant knowledge and avoids irrelevant or tangential text.
-                        </p>
+                <p>
+                    Seed queries are generated using GPT-4.1 over the entire corpus, transformed into question-style prompts, 
+                    clustered to remove redundancy, and manually reviewed to build a high-quality retrieval set. Only chunks 
+                    that semantically match these queries are kept. This ensures the pipeline focuses exclusively on 
+                    agriculturally relevant knowledge and avoids irrelevant or tangential text.
+                </p>
 
-                        <div class="method-callout">
-                            <p><strong>Output of Step 1:</strong> A curated collection of relevant, high-quality text chunks ready for Q&A generation.</p>
+                <div class="method-callout">
+                    <p><strong>Output of Step 1:</strong> A curated collection of relevant, high-quality text chunks ready for Q&A generation.</p>
                         </div>
                     </div>
                 </div>
             
                 <div class="detail-section" style="margin-top: 24px;">
                     <button type="button" class="detail-section-header" aria-expanded="false">
-                        <h2>Step 2 - Q&A Generation (YourBench)</h2>
+                <h2>Step 2 - Q&A Generation (YourBench)</h2>
                         <span class="detail-section-icon">></span>
                     </button>
                     <div class="detail-section-content">
-                        <p>
-                            In this stage, we convert filtered text into realistic, farmer-oriented question-answer pairs using 
+                <p>
+                    In this stage, we convert filtered text into realistic, farmer-oriented question-answer pairs using 
                             <strong>YourBench</strong> with GPT-4o-mini. YourBench is an open-source framework for generating zero-shot benchmarks from documents, enabling automated pipelines for ingestion, summarization, and question generation (<a href="https://arxiv.org/abs/2504.01833" target="_blank" rel="noopener">arXiv</a>, <a href="https://huggingface.co/yourbench" target="_blank" rel="noopener">HuggingFace</a>). HuggingFace has adopted YourBench for benchmarking customer RAG systems. This framework enforces document grounding, multi-hop reasoning, 
-                            and strict prompt constraints to ensure outputs remain faithful to the underlying text.
-                        </p>
-                    
-                        <p>
-                            Filtered PDFs are converted to structured Markdown. Yourbench automatically divides content into 
-                            manageable, semantically coherent segments that stay within model context limits while preserving 
-                            paragraph boundaries and factual continuity.
-                        </p>
-                    
-                        <p>
+                    and strict prompt constraints to ensure outputs remain faithful to the underlying text.
+                </p>
+                
+                <p>
+                    Filtered PDFs are converted to structured Markdown. Yourbench automatically divides content into 
+                    manageable, semantically coherent segments that stay within model context limits while preserving 
+                    paragraph boundaries and factual continuity.
+                </p>
+                
+                <p>
                             For each chunk, an LLM-generated "global summary" provides a high-level context of the document. 
-                            This summary, combined with the local text, allows the model to generate multi-hop questions that 
-                            reference broader agronomic themes while remaining grounded in the provided content.
-                        </p>
-                    
-                        <p>
-                            GPT-4o-mini is prompted to generate question-answer pairs using the chunk + summary as its only source. 
-                            The generation prompt enforces strict rules:
-                        </p>
-                        <ul>
-                            <li>The question must reflect real-world farmer or advisor concerns (e.g., diagnosing symptoms, choosing inputs, timing operations).</li>
-                            <li>The answer must be 2-4 paragraphs long, practical, and actionable.</li>
-                            <li>No external knowledge is allowed - all content must come from the input chunk.</li>
+                    This summary, combined with the local text, allows the model to generate multi-hop questions that 
+                    reference broader agronomic themes while remaining grounded in the provided content.
+                </p>
+                
+                <p>
+                    GPT-4o-mini is prompted to generate question-answer pairs using the chunk + summary as its only source. 
+                    The generation prompt enforces strict rules:
+                </p>
+                <ul>
+                    <li>The question must reflect real-world farmer or advisor concerns (e.g., diagnosing symptoms, choosing inputs, timing operations).</li>
+                    <li>The answer must be 2-4 paragraphs long, practical, and actionable.</li>
+                    <li>No external knowledge is allowed - all content must come from the input chunk.</li>
                             <li>No academic framing ("the study shows…") or region-specific references.</li>
-                        </ul>
-                        <p>
-                            This produces production-oriented, field-level Q&As aligned with how extension services communicate with growers.
-                        </p>
-                    
-                        <p>
-                            All generated Q&As are written to a structured <code>dataset.json</code> file containing:
-                        </p>
-                        <ul>
-                            <li>The question and answer</li>
-                            <li>Chunk citations</li>
-                            <li>Document ID links</li>
-                            <li>Token and cost metadata</li>
-                        </ul>
-                        <p>
-                            This ensures traceability back to the original extension source.
-                        </p>
-                    
-                        <div class="method-callout">
-                            <p><strong>Output of Step 2:</strong> A large pool of grounded, farmer-oriented Q&As with structured provenance.</p>
+                </ul>
+                <p>
+                    This produces production-oriented, field-level Q&As aligned with how extension services communicate with growers.
+                </p>
+                
+                <p>
+                    All generated Q&As are written to a structured <code>dataset.json</code> file containing:
+                </p>
+                <ul>
+                    <li>The question and answer</li>
+                    <li>Chunk citations</li>
+                    <li>Document ID links</li>
+                    <li>Token and cost metadata</li>
+                </ul>
+                <p>
+                    This ensures traceability back to the original extension source.
+                </p>
+            
+                <div class="method-callout">
+                    <p><strong>Output of Step 2:</strong> A large pool of grounded, farmer-oriented Q&As with structured provenance.</p>
                         </div>
                     </div>
                 </div>
             
                 <div class="detail-section" style="margin-top: 24px;">
                     <button type="button" class="detail-section-header" aria-expanded="false">
-                        <h2>Step 3 - Benchmark Curation</h2>
+                        <h2>Step 3 - Q&amp;A Data Set Filtering and Categorization</h2>
                         <span class="detail-section-icon">></span>
                     </button>
                     <div class="detail-section-content">
-                        <p>
-                            The Q&A pool contains duplicates, overly complex items, or questions not adequately supported by the text. 
-                            The curation stage cleans and structures the dataset into a final evaluation benchmark.
-                        </p>
-                    
+                <p>
+                    The Q&A pool contains duplicates, overly complex items, or questions not adequately supported by the text. 
+                    The curation stage cleans and structures the dataset into a final evaluation benchmark.
+                </p>
+            
                         <h3>3.1 Deduplication</h3>
-                        <p>
-                            Questions are embedded using the <code>MiniLM-L6-v2</code> model and compared using cosine similarity via 
+                <p>
+                    Questions are embedded using the <code>MiniLM-L6-v2</code> model and compared using cosine similarity via 
                             <strong>FAISS (Facebook AI Similarity Search)</strong>. A threshold-based search removes near-duplicate questions and answers, retaining the earliest 
-                            occurrence for stability and generating a full duplicate report for auditing.
-                        </p>
-                    
+                    occurrence for stability and generating a full duplicate report for auditing.
+                </p>
+            
                         <h3>3.2 Complexity Filtering</h3>
-                        <p>
-                            A dedicated LLM classifier labels each Q&A as <code>KEEP</code> or <code>REMOVE</code>. Removed items include:
-                        </p>
-                        <ul>
+                <p>
+                    A dedicated LLM classifier labels each Q&A as <code>KEEP</code> or <code>REMOVE</code>. Removed items include:
+                </p>
+                <ul>
                             <li>Overly technical or research-heavy questions ("meta-analyses", "experimental design")</li>
-                            <li>Engineering-focused content (e.g., drone algorithm design)</li>
-                            <li>Excessive jargon inappropriate for grower communication</li>
-                            <li>Questions that are not meaningful in advisory contexts</li>
-                        </ul>
-                    
+                    <li>Engineering-focused content (e.g., drone algorithm design)</li>
+                    <li>Excessive jargon inappropriate for grower communication</li>
+                    <li>Questions that are not meaningful in advisory contexts</li>
+                </ul>
+            
                         <h3>3.3 Premise Filtering</h3>
-                        <p>
-                            This step removes Q&As where the question or answer is not fully supported by the underlying chunk. 
-                            This improves factual grounding and reduces hallucination risk by ensuring every benchmark item has 
-                            verifiable provenance in the extension document.
-                        </p>
-                    
+                <p>
+                    This step removes Q&As where the question or answer is not fully supported by the underlying chunk. 
+                    This improves factual grounding and reduces hallucination risk by ensuring every benchmark item has 
+                    verifiable provenance in the extension document.
+                </p>
+            
                         <h3>3.4 Categorization</h3>
-                        <p>
-                            A specialized LLM classifier identifies the specific crop name (when present) and assigns each Q&A to 
+                <p>
+                    A specialized LLM classifier identifies the specific crop name (when present) and assigns each Q&A to 
                             one of several crop groups. Crop groups categorize questions by the type of crop being discussed. The crop groups are:
                         </p>
                         <ul>
@@ -374,93 +379,93 @@
                             <li><strong>Herbs</strong> - Culinary/medicinal herbs for commercial production</li>
                             <li><strong>Discard</strong> - Vague, incomplete, or not about production farming</li>
                         </ul>
-                        <p>
-                            In our crop-group categorization analysis, we evaluated <strong>65,538 Q&A pairs</strong>, of which 
-                            <strong>26,279 (40.1%)</strong> were retained as non-Discard items and <strong>39,259 (59.9%)</strong> were 
+                <p>
+                    In our crop-group categorization analysis, we evaluated <strong>65,538 Q&A pairs</strong>, of which 
+                    <strong>26,279 (40.1%)</strong> were retained as non-Discard items and <strong>39,259 (59.9%)</strong> were 
                             labeled as Discard (vague, incomplete, or not about production farming). Note that the difference between the 84,385 Q&A pairs evaluated in topic categorization and the 65,538 pairs evaluated in crop-group categorization reflects different pipeline runs and filtering processes at different stages.
-                        </p>
-                        
-                        <div class="table-container" style="margin: 24px 0;">
-                            <table class="stats-table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>Crop Group</th>
-                                        <th>Description</th>
-                                        <th>Q&A Count</th>
-                                        <th>Percentage</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><strong>Discard</strong></td>
-                                        <td>Vague/incomplete / not about production farming</td>
-                                        <td>39,259</td>
-                                        <td>59.90%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><strong>Midwestern_Row_Crops</strong></td>
-                                        <td>Corn, Wheat, Soybean, Sorghum</td>
-                                        <td>10,508</td>
-                                        <td>16.03%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><strong>Tree_Crops</strong></td>
-                                        <td>Fruits and nuts from orchard or plantation trees</td>
-                                        <td>3,775</td>
-                                        <td>5.76%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td><strong>Commercial_Vegetables</strong></td>
-                                        <td>Large-scale vegetables for commercial sale</td>
-                                        <td>3,697</td>
-                                        <td>5.64%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td><strong>Southern_Row_Crops</strong></td>
-                                        <td>Rice, Cotton, Peanuts, Tobacco</td>
-                                        <td>3,550</td>
-                                        <td>5.42%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td><strong>Small_Fruits</strong></td>
-                                        <td>Berries, grapes, other small fruits</td>
-                                        <td>2,501</td>
-                                        <td>3.82%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td><strong>Northern_Crops</strong></td>
-                                        <td>Canola, Barley, Potatoes, Dry Beans</td>
-                                        <td>2,035</td>
-                                        <td>3.11%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td><strong>Herbs</strong></td>
-                                        <td>Culinary/medicinal herbs for commercial production</td>
-                                        <td>213</td>
-                                        <td>0.33%</td>
-                                    </tr>
-                                    <tr style="font-weight: bold; border-top: 2px solid var(--color-border);">
-                                        <td colspan="3"><strong>Total</strong></td>
-                                        <td><strong>65,538</strong></td>
-                                        <td><strong>100%</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <p>
+                </p>
+                
+                <div class="table-container" style="margin: 24px 0;">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Crop Group</th>
+                                <th>Description</th>
+                                <th>Q&A Count</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>Discard</strong></td>
+                                <td>Vague/incomplete / not about production farming</td>
+                                <td>39,259</td>
+                                <td>59.90%</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>Midwestern_Row_Crops</strong></td>
+                                <td>Corn, Wheat, Soybean, Sorghum</td>
+                                <td>10,508</td>
+                                <td>16.03%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>Tree_Crops</strong></td>
+                                <td>Fruits and nuts from orchard or plantation trees</td>
+                                <td>3,775</td>
+                                <td>5.76%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>Commercial_Vegetables</strong></td>
+                                <td>Large-scale vegetables for commercial sale</td>
+                                <td>3,697</td>
+                                <td>5.64%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>Southern_Row_Crops</strong></td>
+                                <td>Rice, Cotton, Peanuts, Tobacco</td>
+                                <td>3,550</td>
+                                <td>5.42%</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>Small_Fruits</strong></td>
+                                <td>Berries, grapes, other small fruits</td>
+                                <td>2,501</td>
+                                <td>3.82%</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong>Northern_Crops</strong></td>
+                                <td>Canola, Barley, Potatoes, Dry Beans</td>
+                                <td>2,035</td>
+                                <td>3.11%</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><strong>Herbs</strong></td>
+                                <td>Culinary/medicinal herbs for commercial production</td>
+                                <td>213</td>
+                                <td>0.33%</td>
+                            </tr>
+                            <tr style="font-weight: bold; border-top: 2px solid var(--color-border);">
+                                <td colspan="3"><strong>Total</strong></td>
+                                <td><strong>65,538</strong></td>
+                                <td><strong>100%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                
+                <p>
                             Each Q&A is additionally labeled with 1-3 agronomic topic categories. The 7 topic categories used in the final dataset are:
-                        </p>
-                        <ul>
+                </p>
+                <ul>
                             <li><strong>Crop Management Decisions</strong></li>
                             <li><strong>Agricultural Sustainability</strong></li>
                             <li><strong>Crop Nutrition</strong></li>
@@ -468,103 +473,103 @@
                             <li><strong>Water and Irrigation Management</strong></li>
                             <li><strong>Weeds and Weed Management</strong></li>
                             <li><strong>Agricultural Weather Risk</strong></li>
-                        </ul>
-                        <p>
-                            In our topic categorization analysis, we evaluated <strong>84,385 Q&A pairs</strong> and retained 
-                            <strong>45,172 records</strong> after filtering. The following table shows the distribution of topic 
-                            categories (note that totals exceed 45,172 due to multi-label assignment, where each Q&A can have 
-                            1-3 topic labels):
-                        </p>
-                        
-                        <div class="table-container" style="margin: 24px 0;">
-                            <table class="stats-table">
-                                <thead>
-                                    <tr>
-                                        <th>Topic Category</th>
-                                        <th>Q&A with this label</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Crop_management_decisions</strong></td>
-                                        <td>15,273</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Agricultural_Sustainability</strong></td>
-                                        <td>13,705</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Crop_Nutrition</strong></td>
-                                        <td>13,257</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Pests_and_Pest_management</strong></td>
-                                        <td>12,672</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Water_and_Irrigation_management</strong></td>
-                                        <td>9,314</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Weeds_and_Weed_management</strong></td>
-                                        <td>5,412</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Agricultural_Weather_Risk</strong></td>
-                                        <td>5,109</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
+                </ul>
+                <p>
+                    In our topic categorization analysis, we evaluated <strong>84,385 Q&A pairs</strong> and retained 
+                    <strong>45,172 records</strong> after filtering. The following table shows the distribution of topic 
+                    categories (note that totals exceed 45,172 due to multi-label assignment, where each Q&A can have 
+                    1-3 topic labels):
+                </p>
+                
+                <div class="table-container" style="margin: 24px 0;">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Topic Category</th>
+                                <th>Q&A with this label</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Crop_management_decisions</strong></td>
+                                <td>15,273</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agricultural_Sustainability</strong></td>
+                                <td>13,705</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Crop_Nutrition</strong></td>
+                                <td>13,257</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pests_and_Pest_management</strong></td>
+                                <td>12,672</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Water_and_Irrigation_management</strong></td>
+                                <td>9,314</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Weeds_and_Weed_management</strong></td>
+                                <td>5,412</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agricultural_Weather_Risk</strong></td>
+                                <td>5,109</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                
                         <p>
                             LLMs are potentially exposed to all public documents during pretraining, and the benchmark — which is derived from public land-grant university publications — might be contaminated with some pretraining data. Publications dated after the training cutoffs are likely to be excluded from pretraining, and the cutoffs are listed below. We use a (unavoidably smaller) benchmark dataset with <strong>146 QA pairs</strong> derived from documents published after September 30, 2024 for the Unbiased leaderboard below. Some of the most recent LLMs have even later training cutoffs and there are insufficient publications after those cutoff dates, so they are excluded from the Unbiased benchmark results.
                         </p>
-                        <p>
-                            To study training-data contamination, all documents and Q&As are divided into:
-                        </p>
-                        <ul>
+                <p>
+                    To study training-data contamination, all documents and Q&As are divided into:
+                </p>
+                <ul>
                             <li><strong>pre-September 30, 2024 split</strong> - likely included in model training corpora</li>
                             <li><strong>post-September 30, 2024 split</strong> - outside training cutoff windows (146 QA pairs)</li>
-                        </ul>
-                        <p>
-                            This enables evaluation of whether models rely on memorization or true reasoning.
-                        </p>
-                    
-                        <div class="method-callout">
-                            <p><strong>Output of Step 3:</strong> A fully cleaned, deduplicated, categorized, contamination-aware benchmark of ~45K high-quality Q&As.</p>
+                </ul>
+                <p>
+                    This enables evaluation of whether models rely on memorization or true reasoning.
+                </p>
+            
+                <div class="method-callout">
+                    <p><strong>Output of Step 3:</strong> A fully cleaned, deduplicated, categorized, contamination-aware benchmark of ~45K high-quality Q&As.</p>
                         </div>
                     </div>
-                </div>
+                    </div>
 
                 <div class="detail-section" style="margin-top: 24px;">
                     <button type="button" class="detail-section-header" aria-expanded="false">
-                        <h2>Step 4 - Expert Review and Quality Assurance</h2>
+                <h2>Step 4 - Expert Review and Quality Assurance</h2>
                         <span class="detail-section-icon">></span>
                     </button>
                     <div class="detail-section-content">
-                        <p>
-                            To ensure the highest quality and practical relevance of the benchmark, we engage domain experts from production 
-                            farming backgrounds to review and validate Q&A pairs. This human-in-the-loop stage adds critical quality control 
-                            and ensures that the benchmark reflects real-world agricultural expertise.
-                        </p>
-                        
-                        <p>
+                <p>
+                    To ensure the highest quality and practical relevance of the benchmark, we engage domain experts from production 
+                    farming backgrounds to review and validate Q&A pairs. This human-in-the-loop stage adds critical quality control 
+                    and ensures that the benchmark reflects real-world agricultural expertise.
+                </p>
+                
+                <p>
                             We connected with a pool of 31 production farming experts with diverse expertise across different crop types, 
                             regions, and agricultural practices. However, only <strong>23 reviewers</strong> completed the review process. Each reviewer's background and specialization were carefully documented to enable 
-                            intelligent question assignment based on their domain knowledge.
-                        </p>
-                        
-                        <p>
+                    intelligent question assignment based on their domain knowledge.
+                </p>
+                
+                <p>
                             Questions were assigned to reviewers based on their specific areas of expertise, ensuring that each Q&A pair is 
-                            evaluated by someone with relevant domain knowledge. The review process involves:
-                        </p>
-                        <ul>
+                    evaluated by someone with relevant domain knowledge. The review process involves:
+                </p>
+                <ul>
                             <li><strong>Quality assessment:</strong> Reviewers evaluate whether each Q&A pair is good, needs revision (CBF - Could Be Fixed), or should be discarded (Not-Good).</li>
                             <li><strong>Manual editing:</strong> For Q&A pairs that are close but fixable, reviewers manually edit and improve the content to meet quality standards. Only Q&A pairs with GOOD or CBF ratings were edited.</li>
                             <li><strong>Domain validation:</strong> Reviewers verify that questions reflect real production farming scenarios and that answers are accurate and actionable.</li>
-                        </ul>
-                        
+                </ul>
+                
                         <p>
                             <strong>Reviewer Coverage:</strong> We assigned <strong>951 questions</strong> for review. The distribution of reviewers per question was:
                         </p>
@@ -596,14 +601,14 @@
                         
                         <p>
                             Through careful evaluation and manual refinement, the final benchmark comprises <strong>416 high-quality Q&A pairs</strong> 
-                            that have been validated by domain experts and meet our strict quality criteria for production agriculture.
-                        </p>
-                        
-                        <div class="method-callout">
-                            <p><strong>Output of Step 4:</strong> A curated benchmark of 416 expert-validated Q&A pairs ready for evaluation and deployment.</p>
+                    that have been validated by domain experts and meet our strict quality criteria for production agriculture.
+                </p>
+                
+                <div class="method-callout">
+                    <p><strong>Output of Step 4:</strong> A curated benchmark of 416 expert-validated Q&A pairs ready for evaluation and deployment.</p>
                         </div>
                     </div>
-                </div>
+                    </div>
 
                 <h2>Pipeline Statistics</h2>
                 <p>
@@ -1603,67 +1608,42 @@ Please only output the scores without any other content. You should output JSON 
             <section id="team" class="section">
                 <h1>Team</h1>
 
-                <p>
-                    AI-AgriBench is a collaboration between researchers in machine learning, agricultural science, and extension.
-                    This section will be updated with the full list of contributors and institutional affiliations.
-                </p>
-                
-                <div class="card-grid">
-                    <div class="card text-center">
-                        <div style="width: 80px; height: 80px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: #6B7280; font-size: 24px;">
-                            👩‍💻
-                        </div>
-                        <h3>Project Leads</h3>
-                        <p><strong>Machine Learning &amp; Benchmark Design</strong></p>
-                        <p>Responsible for pipeline design, modeling choices, and evaluation methodology.</p>
+                <div class="team-group" style="margin-bottom: 48px;">
+                    <h2>CDA Team</h2>
+                    <div class="card" style="padding: 24px;">
+                        <p style="margin: 0; line-height: 1.8;">
+                            Vikram Adve, Talon Becker, Dennis Bowman, Elizabeth Wahle, John Reid, Ansh Ankul, Jixin Li, Chi Gui, Sol Robinson
+                        </p>
                     </div>
+                </div>
 
-                    <div class="card text-center">
-                        <div style="width: 80px; height: 80px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: #6B7280; font-size: 24px;">
-                            👩‍🔬
-                        </div>
-                        <h3>Agronomy &amp; Extension Experts</h3>
-                        <p><strong>Domain &amp; Content Review</strong></p>
-                        <p>Guide category design, review questions, and validate agronomic realism.</p>
+                <div class="team-group" style="margin-bottom: 48px;">
+                    <h2>Steering Committee Members</h2>
+                    <div class="card" style="padding: 24px;">
+                        <p style="margin: 0; line-height: 1.8;">
+                            Tami Craig Schilling, Pratik Desai, Sachi Desai, Gershom Kutliroff, Jonathan Lehe, J. Mark Locklear, Sara Malvar, Lakshmi Pedapudi, Bradley Van De Woestyne, David Warren
+                        </p>
                     </div>
+                </div>
 
-                    <div class="card text-center">
-                        <div style="width: 80px; height: 80px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: #6B7280; font-size: 24px;">
-                            🤖
-                        </div>
-                        <h3>Engineering &amp; Infrastructure</h3>
-                        <p><strong>Data &amp; Evaluation Infrastructure</strong></p>
-                        <p>Implement pipelines, manage datasets, and maintain the leaderboard.</p>
-                        </div>
+                <div class="team-group" style="margin-bottom: 48px;">
+                    <h2>Agronomy Experts (Reviewers)</h2>
+                    <div class="card" style="padding: 24px;">
+                        <p style="margin: 0; line-height: 1.8;">
+                            Chim Bee, Tami Craig Schilling, Robson Monastier, Chris Kallal, Mark Jeschke, Talon Becker, Dennis Bowman, Steve Brand, Dane Hunter, Megan Diss, Lucas DeBruin, Daniel Adamson, Erika Parker, Alexis Barnes, Tom Peters, Grant McCarty, Elizabeth Wahle, Sikiru Atanda, David Baltensperger, Benjamin McKnight, Lee Kalcsits, Larry Redmon, Bradley Van De Woestyne, Juan M. Osorno
+                        </p>
                     </div>
+                </div>
 
-                <div class="institutions-acknowledgments-wrapper">
-                    <div class="institutions-column">
-                <h2>Collaborating Institutions</h2>
-                        <div class="institutions-cards-vertical">
-                    <div class="card text-center">
-                                <h3>AIFARMS / NCSA</h3>
-                                <p>AI and agriculture research at scale, combining HPC and domain expertise.</p>
-                    </div>
-                    <div class="card text-center">
-                        <h3>CropWizard</h3>
-                                <p>Agricultural knowledge platform providing structured access to extension corpora.</p>
-                    </div>
-                    <div class="card text-center">
-                        <h3>Land-Grant University Network</h3>
-                        <p>55+ universities contributing extension bulletins and agricultural expertise.</p>
-                    </div>
-                        </div>
-                    </div>
-                    <div class="acknowledgments-column">
-                <h2>Acknowledgments</h2>
-                <div class="card">
-                            <p>
-                                We thank the extension specialists, agricultural researchers, and farmers whose work underpins this benchmark.
-                                Special recognition goes to the CropWizard team for providing access to their document corpus and to the
-                                land-grant university extension services for decades of publicly available agronomic knowledge.
-                            </p>
-                        </div>
+                <div class="team-group">
+                    <h2>Acknowledgments</h2>
+                    <div class="card" style="padding: 24px;">
+                        <p style="margin: 0 0 16px 0;">
+                            This work was funded by the AIFARMS AI Institute (which is sponsored by the USDA National Institute of Food and Agriculture) and by the Center for Digital Agriculture. It was also supported in part by membership fees paid by consortium member companies.
+                        </p>
+                        <p style="margin: 0;">
+                            We thank the agronomists who manually reviewed and edited a large number of QA pairs for inclusion in the benchmark. Special recognition goes to the CropWizard project team for providing access to their document corpus and technical details of the benchmark evaluation pipeline.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -1679,10 +1659,10 @@ Please only output the scores without any other content. You should output JSON 
                         research collaborations, we'd love to hear from you.
                     </p>
 
-                    <p class="contact-form-text">Please use the contact form below to reach out to our research team.</p>
+                    <p class="contact-form-text">To receive updates about AI-AgriBench, join our mailing list below.</p>
 
                     <div class="contact-button-container">
-                        <a href="https://illinois.qualtrics.com/jfe/form/SV_6D88lUTXUPyO8Qe" class="btn btn-primary" target="_blank">Contact Us</a>
+                        <a href="https://illinois.qualtrics.com/jfe/form/SV_6D88lUTXUPyO8Qe" class="btn btn-primary" target="_blank">Join the mailing list</a>
                         </div>
                         
                     <div class="email-contacts-section">
@@ -1711,27 +1691,6 @@ Please only output the scores without any other content. You should output JSON 
                     </div>
             </section>
 
-            <!-- Partners Section -->
-            <section id="partners" class="section">
-                <h1>Partners</h1>
-                <div class="card-grid">
-                    <div class="card text-center">
-                        <div style="height: 60px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #6B7280;">
-                            CropWizard
-                    </div>
-                    </div>
-                    <div class="card text-center">
-                        <div style="height: 60px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #6B7280;">
-                            Land-grant Universities
-                    </div>
-                    </div>
-                    <div class="card text-center">
-                        <div style="height: 60px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #6B7280;">
-                            Extension Services
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     </main>
 
@@ -1746,10 +1705,6 @@ Please only output the scores without any other content. You should output JSON 
                             AI-AgriBench (2025).
                             <em>Reliable agricultural question answering benchmark from real extension knowledge.</em>
                         </p>
-                    </div>
-                <div>
-                    <p><strong>Acknowledgments</strong></p>
-                        <p>CropWizard &amp; land-grant extension partners.</p>
                     </div>
             </div>
             <div class="footer-links">
