@@ -111,7 +111,7 @@ AI-AgriBench is developed by:
 
 ## Contact
 
-For questions about AI-AgriBench, dataset access, or research collaboration:
+For questions about AI-AgriBench, or research collaboration:
 - **General Inquiries**: Vikram Adve (vadve@illinois.edu)
 - **Technical Support**: Ansh Ankul (aankul2@illinois.edu)
 
