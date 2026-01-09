@@ -61,6 +61,9 @@
                 <a href="#evaluation" class="resource-link">
                     <span class="resource-text">Evaluation</span>
                 </a>
+                <a href="#results" class="resource-link">
+                    <span class="resource-text">Results</span>
+                </a>
                 <a href="#faq" class="resource-link">
                     <span class="resource-text">FAQs</span>
                 </a>
@@ -104,7 +107,7 @@
                         <div class="card">
                             <h3>Contamination-aware evaluation</h3>
                             <p style="font-size: 0.9em;">
-                                To avoid bias for LLMs potentially exposed in pretraining to the source documents used for question-answer extraction, we extract a subset of the QA pairs from documents published AFTER September 30, 2024 and evaluate several LLMs on this subset. These results are marked with an asterisk (*) in the leaderboard and should be compared with the corresponding results for the same model on the full data set.
+                                To avoid bias for LLMs potentially exposed in pretraining to the source documents used for question-answer extraction, we extract a subset of the QA pairs from documents published AFTER September 30, 2024 and evaluate several LLMs on this subset. These results are marked with an asterisk (**) in the leaderboard and should be compared with the corresponding results for the same model on the full data set.
                             </p>
                         </div>
                         </div>
@@ -158,9 +161,9 @@
                 </p>
             </section>
 
-            <!-- DETAILS Header -->
+            <!-- TECHNICAL DETAILS Header -->
             <section class="section">
-                <h1 style="margin-bottom: 24px;">DETAILS</h1>
+                <h1 style="margin-bottom: 24px;">TECHNICAL DETAILS</h1>
                 <p style="font-size: 1.1em; color: var(--color-text-soft); margin-bottom: 48px;">A comprehensive guide to the AI-AgriBench methodology, pipeline, and evaluation framework. Click on the sections below to expand and view detailed information.</p>
             </section>
 
@@ -1443,6 +1446,47 @@ Please only output the scores without any other content. You should output JSON 
                     </p>
                 </div>
                     </div>
+
+            <!-- Results and Takeaways Section -->
+            <div class="detail-section" id="results">
+                <button type="button" class="detail-section-header" aria-expanded="false">
+                    <h1>Results and Takeaways</h1>
+                    <span class="detail-section-icon">></span>
+                </button>
+                <div class="detail-section-content">
+                    <p>
+                        The frontier models and also several of the Ag-focused advisory services based on them all saturate this benchmark, scoring above 94% in Accuracy. This indicates that text-based agronomic knowledge is robust in the strongest models although other features like image-based QA and data-driven decision with reasoning and tools may prove more challenging.
+                    </p>
+
+                    <p>
+                        Adding RAG to a frontier LLM for agriculture-specific knowledge retrieval as in CropWizard and Extension Bot does not significantly improve accuracy compared with the same LLMs without RAG.
+                    </p>
+
+                    <p>
+                        Open source models also show strong performance, only slightly behind the proprietary counterparts, topping out at 92% accuracy. Two leading open models from China, Kimi-K2-Thinking and DeepSeek, significantly outperform the next best open model (Mistral at 85%).
+                    </p>
+
+                    <p>
+                        Completeness and Relevance scores are also high, in the 90% range, across the top performers. Conciseness suffers, however, indicating that many of the models tend to produce longer and perhaps more detailed answers than the length recommended by experts, as captured in the ground truth data set.
+                    </p>
+
+                    <p>
+                        There is little variation across the 9 categories of agronomic topics, with models scoring high on every topic.
+                    </p>
+
+                    <p>
+                        While Accuracy, Relevance, and Completeness are strongly correlated among top-performing models, Conciseness is clearly anti-correlated with Completeness for several frontier systems. This suggests a systematic tendency for stronger models to trade brevity for thoroughness, even when expert-curated ground truth answers are relatively concise.
+                    </p>
+
+                    <p>
+                        Models evaluated on the post-cutoff dataset (marked <strong>**</strong>) show performance closely aligned with their main-dataset results. This suggests that direct memorization of public extension documents is unlikely to be a primary driver of performance, and that models are generalizing agronomic concepts rather than recalling benchmark-specific content.
+                    </p>
+
+                    <p>
+                        Although the strongest open-source models approach frontier accuracy, the performance gap widens on Conciseness and, to a lesser extent, Relevance. This suggests that instruction tuning and alignment strategies rather than raw model capacity play a significant role in producing expert-like agricultural advice.
+                    </p>
+                </div>
+            </div>
             
 
             <!-- FAQ Section -->
@@ -1600,8 +1644,8 @@ Please only output the scores without any other content. You should output JSON 
                         <p style="margin: 0; line-height: 1.8;">
                             Vikram Adve, Talon Becker, Dennis Bowman, Elizabeth Wahle, John Reid, Ansh Ankul, Jixin Li, Chi Gui, Sol Robinson
                         </p>
+                        </div>
                     </div>
-                </div>
 
                 <div class="team-group" style="margin-bottom: 48px;">
                     <h2>Steering Committee Members</h2>
@@ -1609,8 +1653,8 @@ Please only output the scores without any other content. You should output JSON 
                         <p style="margin: 0; line-height: 1.8;">
                             Tami Craig Schilling, Pratik Desai, Sachi Desai, Gershom Kutliroff, Jonathan Lehe, J. Mark Locklear, Sara Malvar, Lakshmi Pedapudi, Bradley Van De Woestyne, David Warren
                         </p>
+                        </div>
                     </div>
-                </div>
 
                 <div class="team-group" style="margin-bottom: 48px;">
                     <h2>Agronomy Experts (Reviewers)</h2>
@@ -1618,11 +1662,11 @@ Please only output the scores without any other content. You should output JSON 
                         <p style="margin: 0; line-height: 1.8;">
                             Chim Bee, Tami Craig Schilling, Robson Monastier, Chris Kallal, Mark Jeschke, Talon Becker, Dennis Bowman, Steve Brand, Dane Hunter, Megan Diss, Lucas DeBruin, Daniel Adamson, Erika Parker, Alexis Barnes, Tom Peters, Grant McCarty, Elizabeth Wahle, Sikiru Atanda, David Baltensperger, Benjamin McKnight, Lee Kalcsits, Larry Redmon, Bradley Van De Woestyne, Juan M. Osorno
                         </p>
+                        </div>
                     </div>
-                </div>
 
                 <div class="team-group">
-                    <h2>Acknowledgments</h2>
+                <h2>Acknowledgments</h2>
                     <div class="card" style="padding: 24px;">
                         <p style="margin: 0 0 16px 0;">
                             This work was funded by the AIFARMS AI Institute (which is sponsored by the USDA National Institute of Food and Agriculture) and by the Center for Digital Agriculture. It was also supported in part by membership fees paid by consortium member companies.
