@@ -136,6 +136,46 @@
                     </div>
             </section>
 
+            <!-- Results and Takeaways Section -->
+            <section id="results" class="section">
+                <h1>Results and Takeaways</h1>
+                <p>
+                    Some key conclusions that can be drawn from the data in the leaderboard are as follows:
+                </p>
+                <ol>
+                    <li>
+                        <p>
+                            The frontier models and also several of the Ag-focused advisory services based on them all saturate this benchmark, with several scoring above 95% and over half scoring above 90% in Accuracy. This indicates that text-based agronomic knowledge is robust in several modern LLMs. It is possible that other features like image-based QA and data-driven decision with reasoning and tools may prove more challenging.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Adding RAG to a frontier LLM for agriculture-specific knowledge retrieval as in CropWizard and Extension Bot does not significantly improve accuracy compared with the same LLMs without RAG.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Completeness and Relevance scores are also high, in the 90% range, across the top performers. Conciseness suffers, however, indicating that many of the models tend to produce longer and perhaps more detailed answers than the length recommended by experts, as captured in the ground truth data set.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            While Accuracy, Relevance, and Completeness are strongly correlated among top-performing models, Conciseness is clearly anti-correlated with Completeness for several frontier systems. This suggests a systematic tendency for stronger models to trade brevity for thoroughness, even when expert-curated ground truth answers are relatively concise.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            There is little variation across the 9 categories of agronomic topics, with models scoring high on every topic.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Models evaluated on the post-cutoff dataset (marked <strong>**</strong>) show performance closely aligned with their full-dataset results (recall that the full benchmark data set is drawn from extension documents published before or after the training cutoffs whereas the post-cutoff data set is only taken from documents published after the cutoff date). The important takeaway is that the models can successfully answer agronomic questions not drawn from their pretraining data, i.e., the results are not biased by exposure to benchmark data sources during pretraining. A stronger conclusion could be that memorization of pretraining data is unlikely to be a primary driver of performance and that the models are generalizing agronomic concepts rather than recalling benchmark-specific content; more careful experimentation is needed to confirm this conclusion.
+                        </p>
+                    </li>
+                </ol>
+            </section>
+
             <!-- Instructions for Joining Leaderboard Section -->
             <section id="instructions-leaderboard" class="section">
                 <h2>Instructions for Joining the Leaderboard</h2>
@@ -1447,47 +1487,6 @@ Please only output the scores without any other content. You should output JSON 
                 </div>
                     </div>
 
-            <!-- Results and Takeaways Section -->
-            <div class="detail-section" id="results">
-                <button type="button" class="detail-section-header" aria-expanded="false">
-                    <h1>Results and Takeaways</h1>
-                    <span class="detail-section-icon">></span>
-                </button>
-                <div class="detail-section-content">
-                    <p>
-                        The frontier models and also several of the Ag-focused advisory services based on them all saturate this benchmark, scoring above 94% in Accuracy. This indicates that text-based agronomic knowledge is robust in the strongest models although other features like image-based QA and data-driven decision with reasoning and tools may prove more challenging.
-                    </p>
-
-                    <p>
-                        Adding RAG to a frontier LLM for agriculture-specific knowledge retrieval as in CropWizard and Extension Bot does not significantly improve accuracy compared with the same LLMs without RAG.
-                    </p>
-
-                    <p>
-                        Open source models also show strong performance, only slightly behind the proprietary counterparts, topping out at 92% accuracy. Two leading open models from China, Kimi-K2-Thinking and DeepSeek, significantly outperform the next best open model (Mistral at 85%).
-                    </p>
-
-                    <p>
-                        Completeness and Relevance scores are also high, in the 90% range, across the top performers. Conciseness suffers, however, indicating that many of the models tend to produce longer and perhaps more detailed answers than the length recommended by experts, as captured in the ground truth data set.
-                    </p>
-
-                    <p>
-                        There is little variation across the 9 categories of agronomic topics, with models scoring high on every topic.
-                    </p>
-
-                    <p>
-                        While Accuracy, Relevance, and Completeness are strongly correlated among top-performing models, Conciseness is clearly anti-correlated with Completeness for several frontier systems. This suggests a systematic tendency for stronger models to trade brevity for thoroughness, even when expert-curated ground truth answers are relatively concise.
-                    </p>
-
-                    <p>
-                        Models evaluated on the post-cutoff dataset (marked <strong>**</strong>) show performance closely aligned with their main-dataset results. This suggests that direct memorization of public extension documents is unlikely to be a primary driver of performance, and that models are generalizing agronomic concepts rather than recalling benchmark-specific content.
-                    </p>
-
-                    <p>
-                        Although the strongest open-source models approach frontier accuracy, the performance gap widens on Conciseness and, to a lesser extent, Relevance. This suggests that instruction tuning and alignment strategies rather than raw model capacity play a significant role in producing expert-like agricultural advice.
-                    </p>
-                </div>
-            </div>
-            
 
             <!-- FAQ Section -->
             <section id="faq" class="section">
@@ -1660,7 +1659,7 @@ Please only output the scores without any other content. You should output JSON 
                     <h2>Agronomy Experts (Reviewers)</h2>
                     <div class="card" style="padding: 24px;">
                         <p style="margin: 0; line-height: 1.8;">
-                            Chim Bee, Tami Craig Schilling, Robson Monastier, Chris Kallal, Mark Jeschke, Talon Becker, Dennis Bowman, Steve Brand, Dane Hunter, Megan Diss, Lucas DeBruin, Daniel Adamson, Erika Parker, Alexis Barnes, Tom Peters, Grant McCarty, Elizabeth Wahle, Sikiru Atanda, David Baltensperger, Benjamin McKnight, Lee Kalcsits, Larry Redmon, Bradley Van De Woestyne, Juan M. Osorno
+                            Reviewer names will be listed here as permissions are obtained.
                         </p>
                         </div>
                     </div>
