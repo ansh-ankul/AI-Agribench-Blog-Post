@@ -35,7 +35,7 @@
             <p class="hero-subtitle">A domain-grounded benchmark for reliable agricultural question answering</p>
             <p class="hero-tagline">
                 Built from real extension bulletins, university materials, and open-access research.
-                </p>
+            </p>
             <div class="hero-logos">
                 <a href="https://aiagribench.org/" target="_blank" rel="noopener">
                 <img src="assets/img/logo_aifarms2.png" alt="AI FARMS" class="partner-logo">
@@ -184,7 +184,7 @@
                 </p>
                 <ol>
                     <li>
-                        <strong>Download the questions JSON:</strong> Download the test set questions in JSON format. The file contains question IDs, questions, and associated metadata. Each entry includes fields such as <code>qna_id</code>, <code>question</code>, <code>crop_group</code>, <code>topic_categories</code>, and <code>split</code> (pre-September 30, 2024 or post-September 30, 2024).
+                        <strong>Download the questions JSON:</strong> To download the test set questions in JSON format, click on the "Click Here to Join the Leaderboard" button at the top of the Leaderboard page and fill out the form. The file contains question IDs, questions, and associated metadata. Each entry includes fields such as <code>qna_id</code>, <code>question</code>, <code>crop_group</code>, <code>topic_categories</code>, and <code>split</code> (pre-September 30, 2024 or post-September 30, 2024).
                     </li>
                     <li>
                         <strong>Run your model:</strong> Generate answers for all questions in the test set using your model or system.
@@ -1513,9 +1513,9 @@ Please only output the scores without any other content. You should output JSON 
                         <div class="faq-answer">
                             <p>
                                 Most popular LLM benchmarks focus on multiple-choice questions, short contexts, and clean textbook-style content.
-                                Real agriculture looks very different. Extension bulletins are long, noisy PDFs. Decisions depend on local weather,
-                                soil conditions, and management history. And the questions that matter - "Should I spray this field now?",
-                                "Why is this crop yellowing after a frost?" - rarely have four neat answer options.
+                                Real agriculture looks very different. Extension bulletins are long, noisy PDFs with complex technical content.
+                                And the questions that matter - "What are the key factors affecting nitrogen uptake in corn?",
+                                "How does soil pH influence nutrient availability?" - require deep agronomic understanding and rarely have four neat answer options.
                             </p>
                             <p>
                                 AI-AgriBench is built to reflect that reality. It evaluates models on open-ended Q&amp;A over real extension content,
@@ -1538,18 +1538,6 @@ Please only output the scores without any other content. You should output JSON 
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>What is allowed usage of the dataset?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>
-                                The AI-AgriBench dataset is intended primarily for research purposes. Users may apply it for academic research, model
-                                evaluation, and educational use. Commercial use requires explicit permission.
-                            </p>
-                        </div>
-                    </div>
 
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
@@ -1590,18 +1578,6 @@ Please only output the scores without any other content. You should output JSON 
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>How were seed queries curated and reviewed?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>
-                                Seed queries are generated using GPT-4.1 over retrieved chunks, clustered to reduce redundancy, and then manually reviewed by
-                                the team to ensure quality, accuracy, and coverage across nine agricultural knowledge categories.
-                            </p>
-                        </div>
-                    </div>
 
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
