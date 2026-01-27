@@ -1538,6 +1538,27 @@ Please only output the scores without any other content. You should output JSON 
                         </div>
                     </div>
 
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Does this version of the benchmark cover real-world farmer questions?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                AI-AgriBench v0.5 is designed to evaluate technical agronomic understanding—specifically how well chatbots and agricultural advisory services grasp core technical concepts. This is an important component of evaluating advisory quality, but it does not represent the full range of real-world farmer decision-making.
+                            </p>
+                            <p>
+                                The current version does not include field-level decision scenarios such as seed or hybrid selection, input product choices, or recommendations that depend on farm-specific data like soil test results, field history, or local weather conditions. These types of practical, context-dependent farmer questions are planned for inclusion in future versions of AI-AgriBench.
+                            </p>
+                            <p>
+                                Future releases will also incorporate image-based question answering, data-driven recommendations using weather forecasts and market prices, and evaluation of models' ability to reason through open-ended, exploratory agricultural questions.
+                            </p>
+                            <p>
+                                See the <a href="#future-improvements">Future Improvements</a> section below for more details on future plans.
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
@@ -1619,6 +1640,51 @@ Please only output the scores without any other content. You should output JSON 
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Future Improvements Section -->
+            <section id="future-improvements" class="section">
+                <h1>Future Improvements</h1>
+                <p>
+                    AI-AgriBench v0.5 represents our initial release focused on text-based agronomic understanding. We are actively working on new releases to expand the benchmark's scope, improve evaluation rigor, and better reflect real-world agricultural advisory scenarios.
+                </p>
+
+                <h2>1. Multimodal Capabilities</h2>
+                <p>
+                    The current benchmark focuses exclusively on text-based question answering (QA). Future versions will incorporate image-based QA—evaluation of a subject model's ability to diagnose crop diseases, identify pests, assess nutrient deficiencies, and recognize weed species from field photographs. This will test visual understanding capabilities that are critical for real-world agricultural diagnostics.
+                </p>
+
+                <h2>2. Enhanced Evaluation Metrics</h2>
+                <p>
+                    While the current Accuracy metric provides an overall assessment, it bundles together several features into a single complex yardstick. For example, it does not always capture fine-grained factual correctness, particularly for individual facts embedded in longer answers. Planned improvements include:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Granular accuracy breakdowns:</strong> Decomposing Accuracy into sub-components such as species identification accuracy, diagnostic correctness, recommendation appropriateness, and terminology precision, enabling more actionable diagnostic insights for improving the subject models.
+                    </li>
+                    <li>
+                        <strong>Fact-level verification:</strong> Developing methods to verify individual factual claims within responses, allowing detection of partially correct answers that mix accurate and inaccurate information.
+                    </li>
+                    <li>
+                        <strong>Additional specialized metrics:</strong> Exploring metrics for safety (e.g., detection of potentially harmful recommendations) and temporal relevance (whether advice appropriately accounts for seasonality or timing).
+                    </li>
+                </ul>
+
+                <h2>3. Field-Level Decision Making</h2>
+                <p>
+                    Version 0.5 primarily evaluates technical agronomic knowledge. Future releases will incorporate more realistic decision-making scenarios, including:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Farm-specific decision contexts:</strong> Questions that require seed or hybrid selection, input product choices, and recommendations conditioned on farm-specific data such as soil test results, field history, and local conditions.
+                    </li>
+                    <li>
+                        <strong>Data-driven recommendations:</strong> Evaluation of models' ability to integrate real-time data sources such as weather forecasts, market prices, soil sensor readings, and satellite imagery to generate actionable advice.
+                    </li>
+                    <li>
+                        <strong>Multi-factor reasoning:</strong> Assessment of how models balance competing considerations such as economic cost, environmental impact, and timing constraints when making complex agricultural decisions.
+                    </li>
+                </ul>
             </section>
 
             <!-- Team Section -->
